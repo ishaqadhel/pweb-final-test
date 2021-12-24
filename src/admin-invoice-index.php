@@ -13,49 +13,9 @@
         header('Location: index.php');
     }
 
+    $allUsersByRole = $user->getAllByRole('parent');
+
     require_once 'components/header.php';
-
-    if (Input::get('submit'))
-    {
-        $validation = new Validation();
-
-        $validation = $validation->check(array(
-            'email' => array(
-                'required'=>true,
-                'min'=>3,
-            ),
-            'password' => array(
-                'required'=>true,
-                'min'=>8,
-            ),
-            'name' => array(
-                'required'=>true,
-            ),
-        ));
-
-        if ($user->checkEmail(Input::get('email')))
-        {
-            $errors[] = 'email sudah terdaftar';
-        }
-        else
-        {
-            if ($validation->passed())
-            {
-                $user->register(array(
-                    'email' => Input::get('email'),
-                    'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
-                    'name' => Input::get('name'),
-                    'role' => 'parent',
-                ));
-
-                Session::flash('admin-parent-create', 'Selamat! anda berhasil membuat akun orangtua!');
-            }
-            else
-            {
-                $errors = $validation->errors();
-            }
-        }
-    }
 
     error_reporting(-1);
 ?>
@@ -110,10 +70,10 @@
 
                         <a
                             href="/admin-parent-index.php"
-                            class="bg-gradient-to-r from-sky-700 to-sky-400 text-white group flex items-center px-2 py-4 text-sm font-semibold rounded-md"
+                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
                         >
                             <svg
-                                class="text-white mr-3 flex-shrink-0 h-6 w-6"
+                                class="text-gray-400 group-hover:text-gray-700 mr-3 flex-shrink-0 h-6 w-6"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -132,11 +92,11 @@
 
                         <a
                             href="/admin-invoice-index.php"
-                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
+                            class="bg-gradient-to-r from-sky-700 to-sky-400 text-white group flex items-center px-2 py-4 text-sm font-semibold rounded-md"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="text-gray-400 group-hover:text-gray-700 mr-3 flex-shrink-0 h-6 w-6"
+                                class="text-white mr-3 flex-shrink-0 h-6 w-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -226,54 +186,85 @@
                     <a href="#" class="text-lg font-semibold text-gray-400">
                         Admin
                     </a>
-                    / Manajemen Orang Tua
+                    / Manajemen Tagihan Sekolah
                 </div>
-                <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 md:px-8">
-                    <h1 class="text-2xl font-semibold text-gray-900">Formulir Akun Orang Tua Murid</h1><br>
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 md:px-8">
+                    <a href="/admin-parent-create.php">
+                        <button
+                            class="bg-gradient-to-r from-sky-700 to-sky-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+                        >
+                            Buat Tagihan Sekolah
+                        </button>
+                    </a>
                 </div>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <!-- Replace with your content -->
-                    <div class="flex flex-col py-1">
-                        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                <div class="shadow overflow-hidden border-b bg-white border-gray-200 sm:rounded-lg">
-                                    <form action="admin-parent-create.php" method="post">
-                                        <div class="py-4 px-8">
-                                            <div class="mb-4">
-                                                <label class="block text-grey-darker text-sm font-bold mb-2">Nama
-                                                    Lengkap</label>
-                                                <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                                    name="name" id="name" placeholder="Masukkan Nama Lengkap Anda">
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <label class="block text-grey-darker text-sm font-bold mb-2">Email</label>
-                                                <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="email"
-                                                    name="email" id="email" placeholder="Masukkan Alamat Email Anda">
-                                            </div>
-        
-                                            <div class="mb-4">
-                                                <label class="block text-grey-darker text-sm font-bold mb-2">Password</label>
-                                                <input class=" border rounded w-full py-2 px-3 text-grey-darker"
-                                                    type="password" name="password" id="password" placeholder="Masukkan Password Anda">
-                                                <p id=error_intake_year></p>
-                                            </div>
-                                            <div class="mb-4">
-                                                <button
-                                                    type='submit'
-                                                    name="submit"
-                                                    value='RegisterAccountParent'
-                                                    class="mb-2 mx-0 rounded-md py-2 px-5 bg-gradient-to-r from-sky-700 to-sky-400 hover:bg-blue-700 text-white font-bold">
-                                                    Submit
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                <div class="flex flex-col py-4">
+                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Nama Tagihan
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Jumlah
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Orang Tua
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Status
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Tanggal Dibuat
+                                                    </th>
+                                                    <th scope="col" class="relative px-6 py-3">
+                                                        <span class="sr-only">Edit</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Odd row -->
+                                                <tr class="bg-white">
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        <h1 class="font-bold text-lg">SPP Tahun 2021</h1>
+                                                        <p class="text-sm text-gray-500">Semester 2</p>
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                        Rp 5,000,000
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                        John Doe
+                                                    </td>
+                                                    <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                        <span
+                                                            class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                                            Belum Dibayar
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                        24 December 2021
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                        <a href="#" class="text-gray-500 hover:text-gray-900">Lihat</a>
+                                                    </td>
+                                                </tr>
+                                                <!-- More people... -->
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- /End replace -->
                 </div>
             </div>
         </main>

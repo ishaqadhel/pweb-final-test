@@ -90,7 +90,7 @@
                         </a>
 
                         <a
-                            href="#"
+                            href="/admin-invoice-index.php"
                             class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
                         >
                             <svg
