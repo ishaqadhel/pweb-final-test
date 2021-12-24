@@ -13,7 +13,46 @@
         header('Location: index.php');
     }
 
+    $allUsersByRole = $user->getAllByRole('parent');
+
     require_once 'components/header.php';
+
+    if (Input::get('submit'))
+    {
+        $validation = new Validation();
+
+        $validation = $validation->check(array(
+            'name' => array(
+                'required'=>true,
+            ),
+            'semester' => array(
+                'required'=>true,
+            ),
+            'total' => array(
+                'required'=>true,
+            ),
+            'id_user' => array(
+                'required'=>true,
+            ),
+        ));
+
+        if ($validation->passed())
+        {
+            $invoice->create(array(
+                'id_user' => Input::get('id_user'),
+                'name' => Input::get('name'),
+                'semester' => Input::get('semester'),
+                'total' => Input::get('total'),
+                'status' => 'not-paid',
+            ));
+
+            Session::flash('admin-invoice-create', 'Selamat! anda berhasil membuat invoice untuk orangtua!');
+        }
+        else
+        {
+            $errors = $validation->errors();
+        }
+    }
 
     error_reporting(-1);
 ?>
@@ -187,7 +226,7 @@
                     / Manajemen Tagihan Sekolah
                 </div>
                 <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 md:px-8">
-                    <a href="/admin-invoice-create.php">
+                    <a href="/admin-parent-create.php">
                         <button
                             class="bg-gradient-to-r from-sky-700 to-sky-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
                         >
@@ -199,66 +238,57 @@
                 <div class="flex flex-col py-4">
                             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                        <table class="min-w-full divide-y divide-gray-200">
-                                            <thead class="bg-gray-50">
-                                                <tr>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Nama Tagihan
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Jumlah
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Orang Tua
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Status
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Tanggal Dibuat
-                                                    </th>
-                                                    <th scope="col" class="relative px-6 py-3">
-                                                        <span class="sr-only">Edit</span>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Odd row -->
-                                                <tr class="bg-white">
-                                                    <td
-                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        <h1 class="font-bold text-lg">SPP Tahun 2021</h1>
-                                                        <p class="text-sm text-gray-500">Semester 2</p>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        Rp 5,000,000
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        John Doe
-                                                    </td>
-                                                    <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        <span
-                                                            class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                                                            Belum Dibayar
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        24 December 2021
-                                                    </td>
-                                                    <td
-                                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        <a href="#" class="text-gray-500 hover:text-gray-900">Lihat</a>
-                                                    </td>
-                                                </tr>
-                                                <!-- More people... -->
-                                            </tbody>
-                                        </table>
+                                    <div class="shadow overflow-hidden border-b bg-white border-gray-200 sm:rounded-lg">
+                                        <form name="" id="" action="">
+                                            <div class="py-4 px-8">
+                        
+                                                <div class="mb-4">
+                                                    <label for="name" class="block text-sm font-medium text-gray-700">Nama Tagihan</label>
+                                                    <select id="name" name="name" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                                        <option value="Biaya SPP">Biaya SPP</option>
+                                                        <option value="Biaya Liburan Akhir">Biaya Liburan Akhir</option>
+                                                        <option value="Biaya Laboratorium">Biaya Laboratorium</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label for="semester" class="block text-sm font-medium text-gray-700">Semester</label>
+                                                    <select id="semester" name="semester" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <label for="id_user" class="block text-sm font-medium text-gray-700">Orang Tua</label>
+                                                    <select id="id_user" name="id_user" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                                    <?php foreach ($allUsersByRole as $data) : ?>
+                                                        <option value=<?php echo $data['id_user'] ?>><?php echo $data['name'] ?></option>
+                                                    <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                        
+                                                <div class="mb-4">
+                                                    <label class="block text-grey-darker text-sm font-bold mb-2">Biaya</label>
+                                                    <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="number"
+                                                        name="total" id="total" placeholder="Masukkan Jumlah Biaya">
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <button
+                                                        type="submit"
+                                                        name="submit"
+                                                        value="CreateInvoice"
+                                                        class="mb-2 mx-0 rounded-md py-2 px-5 bg-gradient-to-r from-sky-700 to-sky-400 hover:bg-blue-700 text-white font-bold">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

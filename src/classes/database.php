@@ -120,7 +120,7 @@
             $values = implode(", ", $valueArrays);
 
             $query = "INSERT INTO $table ($column) VALUES ($values)";
-            
+                      
             return $this->executeQuery($query, 'Error while insert data');
             
         }

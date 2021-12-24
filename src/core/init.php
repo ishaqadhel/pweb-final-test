@@ -10,4 +10,5 @@
     );
 
     $user = new User();
+    $invoice = new Invoice();
 ?>
