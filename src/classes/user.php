@@ -36,6 +36,12 @@
                 return true;
             }
         }
+
+        public function getRole ($email)
+        {
+            $data = $this->_db->getInfo('users', 'email', $email);
+            return $data['role'];
+        }
     }
 
     error_reporting(-1);

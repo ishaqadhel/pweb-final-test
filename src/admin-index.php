@@ -8,11 +8,10 @@
         header('Location: login.php');
     }
 
-    switch($user->getRole(Session::get('email')))
+    if ( $user->getRole(Session::get('email')) != 'admin' )
     {
-        case 'admin':
-            header('Location: index.php');
-        default:
-            header('Location: admin-index.php');
+        header('Location: index.php');
     }
+
+    echo "admin page";
 ?>
