@@ -11,8 +11,13 @@
     switch($user->getRole(Session::get('email')))
     {
         case 'admin':
-            header('Location: index.php');
+            header('Location: admin-index.php');
+        break;
+        case 'parent':
+            header('Location: parent-index.php');
+        break;
         default:
             header('Location: admin-index.php');
+        break;
     }
 ?>

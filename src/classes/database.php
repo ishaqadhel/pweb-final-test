@@ -54,6 +54,52 @@
             }
         }
 
+        public function escape ($name)
+        {
+            return $this->mysqli->real_escape_string($name);
+        }
+
+        public function executeQuery($query, $msg)
+        {
+            if ($this->mysqli->query($query))
+            {
+                return true;
+            }
+            else
+            {
+                die($msg);
+            }
+        }
+
+        public function insert($table, $fields = array())
+        {
+            // mengambil kolom
+            $column = implode(", ", array_keys($fields));
+
+            // mengambil nilai
+            $valueArrays = array();
+            $i = 0;
+            foreach($fields as $key=>$values)
+            {
+                if( is_int($values) )
+                {
+                    $valueArrays[$i] = $this->escape($values);
+                }
+                else
+                {
+                    $valueArrays[$i] = "'" . $this->escape($values) . "'";
+                }
+                $i++;
+            }
+
+            $values = implode(", ", $valueArrays);
+
+            $query = "INSERT INTO $table ($column) VALUES ($values)";
+            
+            return $this->executeQuery($query, 'Error while insert data');
+            
+        }
+
     }   
 
     error_reporting(-1);

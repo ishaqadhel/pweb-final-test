@@ -25,3 +25,6 @@ CREATE TABLE invoice (
     CONSTRAINT FK_InvoiceParent FOREIGN KEY (id_user)
     REFERENCES users(id_user)
 ); 
+
+ALTER TABLE users MODIFY created_at timestamp NOT NULL DEFAULT NOW();
+ALTER TABLE invoice MODIFY created_at timestamp NOT NULL DEFAULT NOW();

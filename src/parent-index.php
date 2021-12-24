@@ -8,7 +8,7 @@
         header('Location: login.php');
     }
 
-    if ( $user->getRole(Session::get('email')) != 'admin' )
+    if ( $user->getRole(Session::get('email')) != 'parent' )
     {
         header('Location: index.php');
     }
@@ -29,7 +29,8 @@
             aria-hidden="true"
         ></div>
 
-        <div class="flex-shrink-0 w-14"></div>
+        <div class="flex-shrink-0 w-14">
+        </div>
     </div>
 
     <div class="hidden md:flex md:flex-shrink-0">
@@ -67,29 +68,6 @@
                         </a>
 
                         <a
-                            href="/admin-parent-index.php"
-                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
-                        >
-                            <!-- Heroicon name: outline/folder -->
-                            <svg
-                                class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                                />
-                            </svg>
-                            Manajemen Orang Tua
-                        </a>
-
-                        <a
                             href="#"
                             class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
                         >
@@ -107,7 +85,7 @@
                                     d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                                 />
                             </svg>
-                            Manajemen Tagihan Sekolah
+                            Tagihan Sekolah
                         </a>
 
                         <a
@@ -188,57 +166,31 @@
                     / Dashboard
                 </div>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <div class="flex flex-col py-4">
-                        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div
-                                class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
-                            >
-                                <div
-                                    class="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg"
-                                >
-                                    <div
-                                        class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center"
-                                    >
-                                        <!--Left Col-->
-                                        <div
-                                            class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden"
-                                        >
-                                            <h1
-                                                class="my-4 bg-clip-text text-transparent bg-gradient-to-br from-sky-700 to-sky-400 text-3xl md:text-5xl font-bold leading-tight text-center md:text-left slide-in-bottom-h1"
-                                            >
-                                                Halo
-                                            </h1>
-                                            <p
-                                                class="leading-normal font-bold text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle"
-                                            >
-                                                Selamat datang di web Admin
-                                                Sekolah NET !
-                                            </p>
+                        <div class="flex flex-col py-4">
+                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div class="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg">
+                                        <div class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+                                            <!--Left Col-->
+                                            <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+                                                <h1 class="my-4 bg-clip-text text-transparent bg-gradient-to-br from-sky-700 to-sky-400 text-3xl md:text-5xl font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Halo</h1>
+                                                <p class="leading-normal font-bold text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">Selamat datang di web Admin Sekolah NET !</p>
+                                            </div>
+                                            <!-- Right Col  -->
+                                            <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
+                                                <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="public/images/illustration.jpg">
+                                            </div>
+                                            <!--Footer-->
+                                            <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+                                                <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; PWEB D 2021</a>
+                                            </div>
+                                            
                                         </div>
-                                        <!-- Right Col  -->
-                                        <div
-                                            class="w-full xl:w-3/5 py-6 overflow-y-hidden"
-                                        >
-                                            <img
-                                                class="w-5/6 mx-auto lg:mr-0 slide-in-bottom"
-                                                src="public/images/illustration.jpg"
-                                            />
-                                        </div>
-                                        <!--Footer-->
-                                        <div
-                                            class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in"
-                                        >
-                                            <a
-                                                class="text-gray-500 no-underline hover:no-underline"
-                                                href="#"
-                                                >&copy; PWEB D 2021</a
-                                            >
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </main>

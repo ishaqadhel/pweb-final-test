@@ -15,6 +15,49 @@
 
     require_once 'components/header.php';
 
+    if (Input::get('submit'))
+    {
+        $validation = new Validation();
+
+        $validation = $validation->check(array(
+            'email' => array(
+                'required'=>true,
+                'min'=>3,
+            ),
+            'password' => array(
+                'required'=>true,
+                'min'=>8,
+            ),
+            'name' => array(
+                'required'=>true,
+            ),
+        ));
+
+        if ($user->checkEmail(Input::get('email')))
+        {
+            $errors[] = 'email sudah terdaftar';
+        }
+        else
+        {
+            if ($validation->passed())
+            {
+                $user->register(array(
+                    'email' => Input::get('email'),
+                    'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
+                    'name' => Input::get('name'),
+                    'role' => 'parent',
+                    ));
+
+                Session::flash('admin-parent-index', 'Selamat! anda berhasil membuat akun orangtua!');
+                header('Location: admin-parent-index.php');
+            }
+            else
+            {
+                $errors = $validation->errors();
+            }
+        }
+    }
+
     error_reporting(-1);
 ?>
 
@@ -46,10 +89,10 @@
                     <nav class="mt-5 flex-1 px-2 bg-white space-y-1 py-4">
                         <a
                             href="/admin-index.php"
-                            class="bg-gradient-to-r from-sky-700 to-sky-400 text-white group flex items-center px-2 py-4 text-sm font-semibold rounded-md"
+                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
                         >
                             <svg
-                                class="text-white mr-3 flex-shrink-0 h-6 w-6"
+                                class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -68,11 +111,10 @@
 
                         <a
                             href="/admin-parent-index.php"
-                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
+                            class="bg-gradient-to-r from-sky-700 to-sky-400 text-white group flex items-center px-2 py-4 text-sm font-semibold rounded-md"
                         >
-                            <!-- Heroicon name: outline/folder -->
                             <svg
-                                class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
+                                class="text-white mr-3 flex-shrink-0 h-6 w-6"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -185,60 +227,54 @@
                     <a href="#" class="text-lg font-semibold text-gray-400">
                         Admin
                     </a>
-                    / Dashboard
+                    / Manajemen Orang Tua
+                </div>
+                <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 md:px-8">
+                    <h1 class="text-2xl font-semibold text-gray-900">Formulir Akun Orang Tua Murid</h1><br>
                 </div>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <div class="flex flex-col py-4">
+                    <!-- Replace with your content -->
+                    <div class="flex flex-col py-1">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div
-                                class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
-                            >
-                                <div
-                                    class="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg"
-                                >
-                                    <div
-                                        class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center"
-                                    >
-                                        <!--Left Col-->
-                                        <div
-                                            class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden"
-                                        >
-                                            <h1
-                                                class="my-4 bg-clip-text text-transparent bg-gradient-to-br from-sky-700 to-sky-400 text-3xl md:text-5xl font-bold leading-tight text-center md:text-left slide-in-bottom-h1"
-                                            >
-                                                Halo
-                                            </h1>
-                                            <p
-                                                class="leading-normal font-bold text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle"
-                                            >
-                                                Selamat datang di web Admin
-                                                Sekolah NET !
-                                            </p>
+                            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                <div class="shadow overflow-hidden border-b bg-white border-gray-200 sm:rounded-lg">
+                                    <form action="admin-parent-create.php" method="post">
+                                        <div class="py-4 px-8">
+                                            <div class="mb-4">
+                                                <label class="block text-grey-darker text-sm font-bold mb-2">Nama
+                                                    Lengkap</label>
+                                                <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
+                                                    name="name" id="name" placeholder="Masukkan Nama Lengkap Anda">
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label class="block text-grey-darker text-sm font-bold mb-2">Email</label>
+                                                <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="email"
+                                                    name="email" id="email" placeholder="Masukkan Alamat Email Anda">
+                                            </div>
+        
+                                            <div class="mb-4">
+                                                <label class="block text-grey-darker text-sm font-bold mb-2">Password</label>
+                                                <input class=" border rounded w-full py-2 px-3 text-grey-darker"
+                                                    type="password" name="password" id="password" placeholder="Masukkan Password Anda">
+                                                <p id=error_intake_year></p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <button
+                                                    type='submit'
+                                                    name="submit"
+                                                    value='RegisterAccountParent'
+                                                    class="mb-2 mx-0 rounded-md py-2 px-5 bg-gradient-to-r from-sky-700 to-sky-400 hover:bg-blue-700 text-white font-bold">
+                                                    Submit
+                                                </button>
+                                            </div>
                                         </div>
-                                        <!-- Right Col  -->
-                                        <div
-                                            class="w-full xl:w-3/5 py-6 overflow-y-hidden"
-                                        >
-                                            <img
-                                                class="w-5/6 mx-auto lg:mr-0 slide-in-bottom"
-                                                src="public/images/illustration.jpg"
-                                            />
-                                        </div>
-                                        <!--Footer-->
-                                        <div
-                                            class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in"
-                                        >
-                                            <a
-                                                class="text-gray-500 no-underline hover:no-underline"
-                                                href="#"
-                                                >&copy; PWEB D 2021</a
-                                            >
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /End replace -->
                 </div>
             </div>
         </main>

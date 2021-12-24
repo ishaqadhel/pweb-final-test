@@ -9,6 +9,18 @@
             $this->_db = Database::getInstance();
         }
 
+        public function register($fields = array())
+        {
+            if ($this->_db->insert('users', $fields))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public function login($email, $password)
         {
             $data = $this->_db->getInfo('users', 'email', $email);
