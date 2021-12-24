@@ -13,6 +13,8 @@
         header('Location: index.php');
     }
 
+    $invoice = $invoice->getAllByUser($user->getUser(Session::get('email'))['id_user']);
+
     require_once 'components/header.php';
 
     error_reporting(-1);
@@ -47,10 +49,10 @@
                     <nav class="mt-5 flex-1 px-2 bg-white space-y-1 py-4">
                         <a
                             href="/admin-index.php"
-                            class="bg-gradient-to-r from-sky-700 to-sky-400 text-white group flex items-center px-2 py-4 text-sm font-semibold rounded-md"
+                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
                         >
                             <svg
-                                class="text-white mr-3 flex-shrink-0 h-6 w-6"
+                                class="text-gray-400 group-hover:text-gray-700 mr-3 flex-shrink-0 h-6 w-6"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -69,11 +71,11 @@
 
                         <a
                             href="/parent-invoice-index.php"
-                            class="bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-4 text-sm font-medium rounded-md"
+                            class="bg-gradient-to-r from-sky-700 to-sky-400 text-white group flex items-center px-2 py-4 text-sm font-semibold rounded-md"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="text-gray-400 group-hover:text-gray-700 mr-3 flex-shrink-0 h-6 w-6"
+                                class="text-white mr-3 flex-shrink-0 h-6 w-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -163,34 +165,70 @@
                     <a href="#" class="text-lg font-semibold text-gray-400">
                         Orang Tua
                     </a>
-                    / Dashboard
+                    / Tagihan Sekolah
                 </div>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                        <div class="flex flex-col py-4">
+                <div class="flex flex-col py-4">
                             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div class="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg">
-                                        <div class="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-                                            <!--Left Col-->
-                                            <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
-                                                <h1 class="my-4 bg-clip-text text-transparent bg-gradient-to-br from-sky-700 to-sky-400 text-3xl md:text-5xl font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Halo</h1>
-                                                <p class="leading-normal font-bold text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">Selamat datang di web Admin Sekolah NET !</p>
-                                            </div>
-                                            <!-- Right Col  -->
-                                            <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-                                                <img class="w-5/6 mx-auto lg:mr-0 slide-in-bottom" src="public/images/illustration.jpg">
-                                            </div>
-                                            <!--Footer-->
-                                            <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-                                                <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; PWEB D 2021</a>
-                                            </div>
-                                            
-                                        </div>
-                                        
+                                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Nama Tagihan
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Jumlah
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Status
+                                                    </th>
+                                                    <th scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Tanggal Dibuat
+                                                    </th>
+                                                    <th scope="col" class="relative px-6 py-3">
+                                                        <span class="sr-only">Edit</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($invoice as $data) : ?>
+                                                    <tr class="bg-white">
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            <h1 class="font-bold text-lg"><?php echo $data['name']; ?></h1>
+                                                            <p class="text-sm text-gray-500">Semester <?php echo $data['semester']; ?></p>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                            Rp <?php echo $data['total']; ?>
+                                                        </td>
+                                                        <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                            <span
+                                                                class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                                                Belum Dibayar
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                            <?php echo $data['created_at']; ?>
+                                                        </td>
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                            <a href="#" class="text-gray-500 hover:text-gray-900">Lihat</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                </div>
                 </div>
             </div>
         </main>

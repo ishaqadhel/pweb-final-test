@@ -55,6 +55,14 @@
             return $data['role'];
         }
 
+        public function getUser ($email)
+        {
+            if ($this->checkEmail($email))
+                return $this->_db->getInfo('users', 'email', $email);
+            else
+                return false;
+        }
+
         public function getAllByRole($role)
         {
             return $this->_db->getAllInfo('users', 'role', $role);
