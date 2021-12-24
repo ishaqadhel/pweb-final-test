@@ -15,6 +15,8 @@
 
     require_once 'components/header.php';
 
+    $invoice = $invoice->getAll();
+
     error_reporting(-1);
 ?>
 
@@ -213,10 +215,6 @@
                                                     </th>
                                                     <th scope="col"
                                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Orang Tua
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Status
                                                     </th>
                                                     <th scope="col"
@@ -229,34 +227,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!-- Odd row -->
-                                                <tr class="bg-white">
-                                                    <td
-                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        <h1 class="font-bold text-lg">SPP Tahun 2021</h1>
-                                                        <p class="text-sm text-gray-500">Semester 2</p>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        Rp 5,000,000
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        John Doe
-                                                    </td>
-                                                    <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        <span
-                                                            class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                                                            Belum Dibayar
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        24 December 2021
-                                                    </td>
-                                                    <td
-                                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        <a href="#" class="text-gray-500 hover:text-gray-900">Lihat</a>
-                                                    </td>
-                                                </tr>
-                                                <!-- More people... -->
+                                                <?php foreach ($invoice as $data) : ?>
+                                                    <tr class="bg-white">
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            <h1 class="font-bold text-lg"><?php echo $data['name']; ?></h1>
+                                                            <p class="text-sm text-gray-500">Semester <?php echo $data['semester']; ?></p>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                            Rp <?php echo $data['total']; ?>
+                                                        </td>
+                                                        <td class="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                            <span
+                                                                class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                                                Belum Dibayar
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                            <?php echo $data['created_at']; ?>
+                                                        </td>
+                                                        <td
+                                                            class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                            <a href="#" class="text-gray-500 hover:text-gray-900">Lihat</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>

@@ -247,7 +247,6 @@
                                         </thead>
                                         <tbody>
                                             <?php foreach ($allUsersByRole as $data) : ?>
-                                                <!-- Even row -->
                                                 <tr class="bg-gray-50">
                                                     <td
                                                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
