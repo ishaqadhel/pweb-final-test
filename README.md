@@ -1,6 +1,6 @@
 # pweb-final-test
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Web Programming Final Test 2021.
@@ -36,6 +36,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://ishaqadhel.com"><img src="https://avatars.githubusercontent.com/u/49280352?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ishaqadhel</b></sub></a><br /><a href="https://github.com/ishaqadhel/pweb-final-test/commits?author=ishaqadhel" title="Code">💻</a> <a href="#infra-ishaqadhel" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/ishaqadhel/pweb-final-test/commits?author=ishaqadhel" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/adjiemahesa"><img src="https://avatars.githubusercontent.com/u/55140514?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adjiemahesa</b></sub></a><br /><a href="https://github.com/ishaqadhel/pweb-final-test/commits?author=adjiemahesa" title="Code">💻</a> <a href="#design-adjiemahesa" title="Design">🎨</a></td>
   </tr>
 </table>
 
