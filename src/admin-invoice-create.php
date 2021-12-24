@@ -54,7 +54,7 @@
         }
     }
 
-    error_reporting(-1);
+    error_reporting(0);
 ?>
 
 <div class="h-screen flex overflow-hidden bg-gray-100">

@@ -60,7 +60,7 @@
 
     require_once 'components/header.php';
 
-    error_reporting(-1);
+    error_reporting(0);
 ?>
 
 <!-- navbar -->
