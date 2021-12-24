@@ -15,6 +15,16 @@
         "infra",
         "doc"
       ]
+    },
+    {
+      "login": "adjiemahesa",
+      "name": "adjiemahesa",
+      "avatar_url": "https://avatars.githubusercontent.com/u/55140514?v=4",
+      "profile": "https://github.com/adjiemahesa",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
