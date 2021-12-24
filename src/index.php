@@ -17,7 +17,7 @@
             header('Location: parent-index.php');
         break;
         default:
-            header('Location: admin-index.php');
+            header('Location: login.php');
         break;
     }
 ?>
