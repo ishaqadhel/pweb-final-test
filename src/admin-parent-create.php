@@ -46,10 +46,9 @@
                     'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
                     'name' => Input::get('name'),
                     'role' => 'parent',
-                    ));
+                ));
 
-                Session::flash('admin-parent-index', 'Selamat! anda berhasil membuat akun orangtua!');
-                header('Location: admin-parent-index.php');
+                Session::flash('admin-parent-create', 'Selamat! anda berhasil membuat akun orangtua!');
             }
             else
             {

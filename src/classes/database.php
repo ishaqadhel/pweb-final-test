@@ -54,6 +54,31 @@
             }
         }
 
+        public function getAllInfo($table, $column = '', $value = '')
+        {
+          if( !is_int($value) )
+            $value = "'". $value . "'";
+      
+            if( $column != '' ) {
+              $query  = "SELECT * FROM $table WHERE $column = $value";
+              $result = $this->mysqli->query($query);
+      
+              while($row = $result->fetch_assoc()){
+                 $results[] = $row;
+              }
+              return $results;
+            } else {
+              $query  = "SELECT * FROM $table";
+              $result = $this->mysqli->query($query);
+      
+              while($row = $result->fetch_assoc()){
+                 $results[] = $row;
+              }
+      
+              return $results;
+            }
+        }
+
         public function escape ($name)
         {
             return $this->mysqli->real_escape_string($name);

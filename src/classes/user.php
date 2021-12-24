@@ -54,6 +54,16 @@
             $data = $this->_db->getInfo('users', 'email', $email);
             return $data['role'];
         }
+
+        public function getAllByRole($role)
+        {
+            return $this->_db->getAllInfo('users', 'role', $role);
+        }
+
+        public function getAllUsers()
+        {
+            return $this->_db->getInfo('users');
+        }
     }
 
     error_reporting(-1);

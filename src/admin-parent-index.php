@@ -13,6 +13,8 @@
         header('Location: index.php');
     }
 
+    $allUsersByRole = $user->getAllByRole('parent');
+
     require_once 'components/header.php';
 
     error_reporting(-1);
@@ -244,97 +246,53 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Odd row -->
-                                            <tr class="bg-white">
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                                >
-                                                    <h1
-                                                        class="font-bold text-lg"
+                                            <?php foreach ($allUsersByRole as $data) : ?>
+                                                <!-- Even row -->
+                                                <tr class="bg-gray-50">
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                                                     >
-                                                        Harry Potter
-                                                    </h1>
-                                                    <p
-                                                        class="text-sm text-gray-500"
+                                                        <h1
+                                                            class="font-bold text-lg"
+                                                        >
+                                                            <?php echo $data['name']; ?>
+                                                        </h1>
+                                                        <p
+                                                            class="text-sm text-gray-500"
+                                                        >
+                                                            <?php echo $data['email']; ?>
+                                                        </p>
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                                                     >
-                                                        harryganteng@gmail.com
-                                                    </p>
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                                >
-                                                    Orang Tua
-                                                </td>
-                                                <td
-                                                    class="px-5 py-4 whitespace-nowrap text-sm text-gray-500"
-                                                >
-                                                    <span
-                                                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                                                        Orang Tua
+                                                    </td>
+                                                    <td
+                                                        class="px-5 py-4 whitespace-nowrap text-sm text-gray-500"
                                                     >
-                                                        Online
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                                >
-                                                    23/04/18
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                                                >
-                                                    <a
-                                                        href="#"
-                                                        class="text-gray-500 hover:text-gray-900"
-                                                        >Lihat</a
+                                                        <span
+                                                            class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-green-800"
+                                                        >
+                                                            Offline
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                                                     >
-                                                </td>
-                                            </tr>
-
-                                            <!-- Even row -->
-                                            <tr class="bg-gray-50">
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                                >
-                                                    <h1
-                                                        class="font-bold text-lg"
+                                                        <?php echo $data['created_at']; ?>
+                                                    </td>
+                                                    <td
+                                                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                                     >
-                                                        Hermione Granger
-                                                    </h1>
-                                                    <p
-                                                        class="text-sm text-gray-500"
-                                                    >
-                                                        hermione@gmail.com
-                                                    </p>
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                                >
-                                                    Orang Tua
-                                                </td>
-                                                <td
-                                                    class="px-5 py-4 whitespace-nowrap text-sm text-gray-500"
-                                                >
-                                                    <span
-                                                        class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-green-800"
-                                                    >
-                                                        Offline
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                                >
-                                                    23/04/18
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                                                >
-                                                    <a
-                                                        href="#"
-                                                        class="text-gray-500 hover:text-gray-900"
-                                                        >Lihat</a
-                                                    >
-                                                </td>
-                                            </tr>
+                                                        <a
+                                                            href="#"
+                                                            class="text-gray-500 hover:text-gray-900"
+                                                            >Lihat</a
+                                                        >
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
